@@ -17,7 +17,7 @@ body{
 .btonBuscar {
     width: 10%;
     margin-left: 3%;
-    height: 25%;
+    height: 35%;
     border: none;
     outline: none;
     color: #fff;
@@ -26,6 +26,7 @@ body{
     position: relative;
     z-index: 0;
     border-radius: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .btonBuscar:before {
@@ -106,21 +107,30 @@ body{
 
 #imgPokeUser{
     border-radius: 50%;
-    background-color: burlywood;
+    background-color: rgb(180, 87, 87);
 }
 
 #nombrePokeUser{
-    color: #ff4411; font-size: 28px; font-family: 'Signika', sans-serif;
+    color: #ff4411; font-size: 28px; 
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 #tipoPokeUser{
-    color: #ff4411; font-size: 28px; font-family: 'Signika', sans-serif;
+    color: #ff4411; font-size: 28px; 
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 #nombrePokeBot{
-    color: blue; font-size: 28px; font-family: 'Signika', sans-serif;
+    color: blue; font-size: 28px; 
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 #tipoPokeBot{
-    color: blue; font-size: 28px; font-family: 'Signika', sans-serif;
+    color: blue; font-size: 28px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#imgPokeBot{
+    border-radius: 50%;
+    background-color: lightseagreen;
 }

@@ -7,60 +7,51 @@ var pokemonChoseByBot = [];
 var pokemonChoseByPlayer = [];
 var totalPowerBot = 0;
 var totalPowerUser = 0;
-var audio = new Audio('./pokeMusic.mp3');
-
+var audio = new Audio("./pokeMusic.mp3");
 
 window.onload = () => {
+  //Instanciación
 
-
-  
   //Creación campo input
-
 
   bodyDoc = document.querySelector("body");
   divButtonFight = document.createElement("div");
   matchCode = document.createElement("input");
   matchCode.type = "search";
   matchCode.id = "buscador";
-  matchCode.placeholder = 'Introduce ID o Nombre'
-  matchCode.classList.add('buscador')
+  matchCode.placeholder = "Introduce ID o Nombre";
+  matchCode.classList.add("buscador");
 
   searchButton = document.createElement("button");
   searchButton.innerHTML = "Elegir Pokemon";
-  searchButton.id = "btonBuscar"
-  searchButton.classList.add('btonBuscar')
+  searchButton.id = "btonBuscar";
+  searchButton.classList.add("btonBuscar");
 
   bodyDoc.appendChild(matchCode);
   bodyDoc.appendChild(searchButton);
 
   // La consola elige un pokemon enemigo contra el que luchar
-  var pokeBot = randomChoice(1, 898);
+  var pokeBot = randomChoice(1, 898); //Elige un numero aleatorio del 1 al 898
   var user = "bot"; // identificamos al usuario rival como un 'bot' para determinar aposteriori la clase del Pokemon
-  datosPokemon(pokeBot, user);
- 
+  datosPokemon(pokeBot, user); // se llama a la función datosPokemon para obtener los datos del pokemon rival
 
-  // El jugador elige al pokemon que luchará con el BOT (solo puede elegir uno)
+  // El jugador elige al pokemon que luchará con el BOT (solo puede elegir uno).
+  //Se elige al pokemón cuando se pulsa el botón "Elegir Pokemon"
   searchButton.addEventListener("click", () => {
-    var pokeQuery = document.getElementById("buscador").value.toLowerCase();
-    user = "jugador";
+    var pokeQuery = document.getElementById("buscador").value.toLowerCase(); // contiene el pokemon buscado
+    user = "jugador"; // identificamos al usuario como el jugador cuando se pulsa el boton
 
+    if (audio.paused == true) 
+      //Musica Maestro. Comienza la batalla
+      audio.play();
 
-
-
-    if(audio.paused == true)//Musica Maestro
-    audio.play()
-  
-  
-  
-
-     if (contador == 0) {
-      contador = contador + 1;
-      datosPokemon(pokeQuery, user);
-    } else if(contadorLivesUser < 5){
-      user = "jugador"
+    if (contador == 0) { // La primera vez que se elige pokemon el contador está a cero
+      contador = contador + 1; // Se ha elegido el primer pokemon. El contador pasa a 1
+      datosPokemon(pokeQuery, user); // Se llama a la funcion para obtener los datos del pokemon que ha eligido el jugador
+    } else if (contadorLivesUser < 5) {
+      user = "jugador";
       datosPokemon(pokeQuery, user);
     }
-
   });
 };
 
@@ -68,7 +59,7 @@ window.onload = () => {
 function showPokemon(dato, style) {
   //aqui solo llegan los pokemon encontrados
 
-  cardPoke = document.createElement("div");
+  cardPoke = document.createElement("div"); // Se crea el div que "aloja" el pokemon. Primero el del bot y luego el del usuario
 
   for (var i = 0; i < seisLives; i++) {
     //Añadimos las vidas a los jugadores. Cada jugador tiene 6 vidas
@@ -84,14 +75,14 @@ function showPokemon(dato, style) {
     cardPoke.appendChild(pokeballs);
   }
 
-  cardPoke.classList.add(`${style}`);
-  cardPoke.id = `${style}` + 'id' //El id del div del pokemon del bot y del usser
-  bodyDoc.appendChild(cardPoke);
+  cardPoke.classList.add(`${style}`); // El estilo que añadimos al div del bot y del user
+  cardPoke.id = `${style}` + "id"; //El id del div del pokemon del bot y del usser
+  bodyDoc.appendChild(cardPoke); 
   for (propiedad in dato) {
     if (propiedad === "name") {
       var pokeName = document.createElement("p");
-      pokeName.innerText = dato.name.toUpperCase()
-    
+      pokeName.innerText = dato.name.toUpperCase(); // MOSTRAMOS el nombre del pokemon elegido por el usuario y el bot
+
       cardPoke.appendChild(pokeName);
     } else if (propiedad === "sprites") {
       var pokeImg = document.createElement("Img");
@@ -103,7 +94,7 @@ function showPokemon(dato, style) {
       cardPoke.appendChild(pokeImg);
     } else if (propiedad === "types") {
       var pokeTipo = document.createElement("p");
-      pokeTipo.innerText = dato.types[0].type.name;
+      pokeTipo.innerText = dato.types[0].type.name.toUpperCase();
       cardPoke.appendChild(pokeTipo);
     }
   }
@@ -121,11 +112,12 @@ function showPokemon(dato, style) {
 
 ///Mostrar siguiente Pokemon
 
-function showNextPokemon(dato, style) {
+function showNextPokemon(dato, style) { // Esta funcion se ejecuta despues de la primera batalla y hace que se vayan sobrescribiendo los pokemons elegidos
+  // tanto por parte del jugador como del bot.
   for (propiedad in dato) {
     if (propiedad === "name" && style == "cardPoke") {
       var pokeName = document.getElementById("nombrePokeBot");
-      pokeName.innerText = dato.name;
+      pokeName.innerText = dato.name.toUpperCase();
     } else if (propiedad === "sprites" && style == "cardPoke") {
       var pokeImg = document.getElementById("imgPokeBot");
     } else if (propiedad === "types" && style == "cardPoke") {
@@ -133,7 +125,7 @@ function showNextPokemon(dato, style) {
       pokeTipo.innerText = dato.types[0].type.name;
     } else if (propiedad === "name" && style == "cardPokeUser") {
       var pokeName = document.getElementById("nombrePokeUser");
-      pokeName.innerText = dato.name;
+      pokeName.innerText = dato.name.toUpperCase();
     } else if (propiedad === "sprites" && style == "cardPokeUser") {
       var pokeImg = document.getElementById("imgPokeUser");
     } else if (propiedad === "types" && style == "cardPokeUser") {
@@ -157,36 +149,36 @@ const datosPokemon = async (id, user) => {
     let respuesta = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
     let dato = await respuesta.json();
 
-    console.log(dato);
+    console.log(dato); // Se muestra el por el consola el pokemon que elegimos y el que elige el bot
 
     //Elegimos el estilo dependiendo de quien es el jugador (bot o user)
     if (user === "bot") {
       style = "cardPoke";
-      pokemonChoseByBot = dato;
+      pokemonChoseByBot = dato; // se guarda en esta variable el pokemon elegido por el bot
     } else {
       style = "cardPokeUser";
-      pokemonChoseByPlayer = dato;
+      pokemonChoseByPlayer = dato; // Se guarda en esta variable el pokemon elegido
     }
 
     /////////////////////////////////////
     if (contadorDivs <= 1) {
-      showPokemon(dato, style);
-      contadorDivs = contadorDivs + 1;
+      showPokemon(dato, style);  // Cuando elige el bot por primera vez, se mete en esta función y cuando elegimos nosotros por primera vez, también.
+      contadorDivs = contadorDivs + 1; // Despues de que el bot haya elegido el pokemon el contador de divs pasa a 1. Cuando elija el jugador pasará a 2
     } else {
-      showNextPokemon(dato, style);
+      showNextPokemon(dato, style); // A partir de la segunda batalla, se procesa esta función porque el contadordeDivs es 2 o mayor
     }
     ///////////////////////////////////
-    var buttonFights = document.getElementById
+    
     if (user === "jugador" && contadorLivesUser == 5) {
-      showButtonFight(); //Despues de mostrar el pokemón aparece el botón de lucha
+      showButtonFight(); //Despues de mostrar el pokemón aparece el botón de lucha. Solo se muestra una vez. Cuando el usuario es el jugador y cuando tiene las 6 vidas. Es decir, 
+      // despues de elegir el primer pokemon unicamente. ¡¡YA ESTAMOS LISTOS PARA LUCHAR POR PRIMERA VEZ!
     }
   } catch {
     console.log("Not Found");
     var error = "No Existe el Pokemón buscado";
     if (error != null) {
-
-      alert('No Existe el Pokemón Buscado')
-      error = null
+      alert("No Existe el Pokemón Buscado");
+      error = null;
     }
   }
   return error;
@@ -197,46 +189,45 @@ function randomChoice(min, max) {
 }
 
 const showButtonFight = () => {
- 
   bodyDoc.appendChild(divButtonFight);
   buttonFights = document.createElement("button");
   buttonFights.innerHTML = "FIGHT!";
   divButtonFight.appendChild(buttonFights);
 
-  buttonFights.addEventListener("click", () => {
-    pokeFight(contadorLivesBot, contadorLivesUser);
-  
 
+  buttonFights.addEventListener("click", () => {
+    imgInicializada = null
+    imgInicializada = document.getElementById('imgPokeUser') 
+    if(imgInicializada.currentSrc !== ''){ //Se evita que el jugdor pueda darle a fight sin elegir pokemon antes
+
+    pokeFight(contadorLivesBot, contadorLivesUser); // Se pulsa el boton 'FIGHT!' por primera vez y los usuarios tienen 6 vidas
+    }else{alert('elige un pokemon')}
   });
 };
 
 function pokeFight() {
   for (key in pokemonChoseByBot.stats) {
-    totalPowerBot = totalPowerBot + pokemonChoseByBot.stats[key].base_stat;
-   
+    totalPowerBot = totalPowerBot + pokemonChoseByBot.stats[key].base_stat; //sumamos el poder del bot
   }
 
   for (key in pokemonChoseByPlayer.stats) {
-    totalPowerUser = totalPowerUser + pokemonChoseByPlayer.stats[key].base_stat;
-    
+    totalPowerUser = totalPowerUser + pokemonChoseByPlayer.stats[key].base_stat;//sumamos el poder del user
   }
-  console.log(totalPowerUser)
-  console.log(totalPowerBot)
+  console.log(totalPowerUser);
+  console.log(totalPowerBot);
   if (totalPowerUser >= totalPowerBot) {
-    pokeballAEliminar = document.getElementById(`${contadorLivesBot}` + "b");
+    pokeballAEliminar = document.getElementById(`${contadorLivesBot}` + "b"); //Quitamos la  pokeball
     pokeballAEliminar.remove();
-    contadorLivesBot = contadorLivesBot - 1;
+    contadorLivesBot = contadorLivesBot - 1; // le restamos una vida al rival
 
-    nombrepokemonAEliminar = document.getElementById("nombrePokeBot");
-    tipopokemonAEliminar = document.getElementById("tipoPokeBot");
-    imagenpokemonAEliminar = document.getElementById("imgPokeBot");
-    totalPowerUser = 0
-    totalPowerBot = 0
+    nombrepokemonAEliminar = document.getElementById("nombrePokeBot"); // No hace falta
+    tipopokemonAEliminar = document.getElementById("tipoPokeBot"); // No hace falta
+    imagenpokemonAEliminar = document.getElementById("imgPokeBot"); // No hace falta
+    totalPowerUser = 0; // Ha acabado la pelea y reiniciamos el poder
+    totalPowerBot = 0; // Si no reiniciamos los poderes, se les acumularán a los siguientes pokemons
 
-    
-    var pokeChoiceBot = randomChoice(1, 898);
-    datosPokemon(pokeChoiceBot, "bot");
-  
+    var pokeChoiceBot = randomChoice(1, 898); // Pierde la maquina y vuelve a elegir pokemon
+    datosPokemon(pokeChoiceBot, "bot"); // El bot pasa el id elegido y vuelve a hacer la query
   } else {
     var pokeQueryIn = document.getElementById("buscador").value;
     pokeballAEliminar = document.getElementById(`${contadorLivesUser}` + "u");
@@ -249,21 +240,17 @@ function pokeFight() {
     imagenpokemonAEliminar = document.getElementById("imgPokeUser");
     imagenpokemonAEliminar.src = "";
 
-    totalPowerUser = 0
-    totalPowerBot = 0
+    totalPowerUser = 0;
+    totalPowerBot = 0;
 
-
-
-/*     var pokeQuery = document.getElementById("buscador").value;
+    /*     var pokeQuery = document.getElementById("buscador").value;
 
     if (pokeQuery != pokeQueryIn) datosPokemon(pokeQuery, "jugador"); */
   }
 
-  if(contadorLivesBot < 0){
-    alert('Has ganado a tus rivales!')
-  }else if(contadorLivesUser < 0){
-    alert('Gary Te ha Ganado')
+  if (contadorLivesBot < 0) {
+    alert("Has ganado a tus rivales!");
+  } else if (contadorLivesUser < 0) {
+    alert("Gary Te ha Ganado");
   }
 }
-
-
