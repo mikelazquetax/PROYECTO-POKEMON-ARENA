@@ -1,0 +1,126 @@
+body{
+    background-color:whitesmoke;
+}
+
+.buscador{
+    margin-left: 40%;
+    border-color: red;
+    border-radius: 10%;
+    width: 13%;
+    padding-left: 2%;
+}
+.buscador:hover{
+    border-color:blue;
+ 
+}
+
+.btonBuscar {
+    width: 10%;
+    margin-left: 3%;
+    height: 25%;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+}
+
+.btonBuscar:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.btonBuscar:active {
+    color: #000
+}
+
+.btonBuscar:active:after {
+    background: transparent;
+}
+
+.btonBuscar:hover:before {
+    opacity: 1;
+}
+
+.btonBuscar:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+
+
+
+.cardPoke{
+    
+    height: 100%;
+/*    width: fit-content; */
+    margin-left: 60%;
+    margin-top: 5%;
+}
+
+.cardPokeUser{
+    height: 100%;
+/*    width: fit-content; */
+    margin-left: 40%;
+
+}
+
+.pokeball{
+    height: 2%;
+    width: 2%;
+    display: inline-flex;
+    padding-inline: 2px;
+}
+
+.logoCabecera{
+    background-color: red;
+}
+
+#imgPokeUser{
+    border-radius: 50%;
+    background-color: burlywood;
+}
+
+#nombrePokeUser{
+    color: #ff4411; font-size: 28px; font-family: 'Signika', sans-serif;
+}
+
+#tipoPokeUser{
+    color: #ff4411; font-size: 28px; font-family: 'Signika', sans-serif;
+}
+
+#nombrePokeBot{
+    color: blue; font-size: 28px; font-family: 'Signika', sans-serif;
+}
+
+#tipoPokeBot{
+    color: blue; font-size: 28px; font-family: 'Signika', sans-serif;
+}
