@@ -12,6 +12,18 @@ var audio = new Audio("./pokeMusic.mp3");
 window.onload = () => {
   //Instanciación
 
+  const closeModalButtons = document.querySelectorAll('[data-close-button]')
+  const overlay = document.getElementById('overlay')
+  overlay.classList.add('active')
+
+
+closeModalButtons.forEach(button =>{
+  button.addEventListener('click', () =>{
+
+  closeModel(modal)
+  
+  })
+})
   //Creación campo input
 
   bodyDoc = document.querySelector("body");
@@ -29,7 +41,8 @@ window.onload = () => {
 
   bodyDoc.appendChild(matchCode);
   bodyDoc.appendChild(searchButton);
-
+  
+  
   // La consola elige un pokemon enemigo contra el que luchar
   var pokeBot = randomChoice(1, 898); //Elige un numero aleatorio del 1 al 898
   var user = "bot"; // identificamos al usuario rival como un 'bot' para determinar aposteriori la clase del Pokemon
@@ -43,11 +56,12 @@ window.onload = () => {
 
     if (audio.paused == true) 
       //Musica Maestro. Comienza la batalla
-      audio.play();
+     // audio.play();
 
     if (contador == 0) { // La primera vez que se elige pokemon el contador está a cero
       contador = contador + 1; // Se ha elegido el primer pokemon. El contador pasa a 1
       datosPokemon(pokeQuery, user); // Se llama a la funcion para obtener los datos del pokemon que ha eligido el jugador
+   
     } else if (contadorLivesUser < 5) {
       user = "jugador";
       datosPokemon(pokeQuery, user);
@@ -64,20 +78,23 @@ function showPokemon(dato, style) {
   for (var i = 0; i < seisLives; i++) {
     //Añadimos las vidas a los jugadores. Cada jugador tiene 6 vidas
     var pokeballs = document.createElement("Img");
-    pokeballs.classList.add("pokeball");
+   
     pokeballs.src = "./pokeball.png";
     if (style === "cardPoke") {
       pokeballs.id = i + "b";
+      pokeballs.classList.add("pokeball");
     } else {
       pokeballs.id = i + "u";
+      pokeballs.classList.add("pokeballu");
     }
 
     cardPoke.appendChild(pokeballs);
   }
-
+  container = document.getElementById('container')
   cardPoke.classList.add(`${style}`); // El estilo que añadimos al div del bot y del user
   cardPoke.id = `${style}` + "id"; //El id del div del pokemon del bot y del usser
-  bodyDoc.appendChild(cardPoke); 
+  container.appendChild(cardPoke); 
+  bodyDoc.appendChild(container)
   for (propiedad in dato) {
     if (propiedad === "name") {
       var pokeName = document.createElement("p");
@@ -191,9 +208,14 @@ function randomChoice(min, max) {
 const showButtonFight = () => {
   bodyDoc.appendChild(divButtonFight);
   buttonFights = document.createElement("button");
-  buttonFights.innerHTML = "FIGHT!";
+  buttonFights.innerText = "A (Luchar)";
+  buttonFights.classList.add('pokeballFight')
   divButtonFight.appendChild(buttonFights);
 
+  buttonRun = document.createElement("button");
+  buttonRun.innerText = "B (Huir)";
+  buttonRun.classList.add('pokeballRun')
+  divButtonFight.appendChild(buttonRun);
 
   buttonFights.addEventListener("click", () => {
     imgInicializada = null
@@ -203,6 +225,12 @@ const showButtonFight = () => {
     pokeFight(contadorLivesBot, contadorLivesUser); // Se pulsa el boton 'FIGHT!' por primera vez y los usuarios tienen 6 vidas
     }else{alert('elige un pokemon')}
   });
+
+  buttonRun.addEventListener("click", ()=>{
+    alert('Cobarde!')
+    window.location.reload()
+  })
+
 };
 
 function pokeFight() {
@@ -253,4 +281,12 @@ function pokeFight() {
   } else if (contadorLivesUser < 0) {
     alert("Gary Te ha Ganado");
   }
+}
+
+
+function closeModel(modal){
+if (modal == null) return
+modal.classList.remove('active')
+overlay.classList.remove('active')
+
 }

@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gotta Catch them all</title>
     <script src="./pokeapi.js"></script>
-    <link rel="stylesheet" href="./pokeapi.css">
-</head>
-<body>
-    
-    <h1 class='logoCabecera'><img src="./pokelogo.png" alt="pokemonLogo"></h1>
-    
-</body>
+    <link rel="stylesheet" href="./pokeapi.css" />
+  </head>
+
+  <body>
+    <h1 class="logoCabecera"><img src="./pokelogo.png" alt="pokemonLogo" /></h1>
+    <div class="modal active" id="modal">
+      <div class="modal-header">
+        <div class="title">Bienvenido a la Arena</div>
+        <button data-close-button class="close-button">&times;</button>
+      </div>
+      <div class="modal-body">
+        Te traigo el clásico juego de batallas Pokemón. <br></br>¡ Demuestra que estás
+        hecho todo un maestro pokemón!. <br></br>Tu rival, Gary tiene hasta 6 pokemon
+        dispuestos a pelear contra los tuyos. Elige cuidadosamente el pokemón
+        con el que quieras pelear. Recuerda que si tu primer pokemón cae
+        derrotado, podrás elegir otro de tu pokedex buscando por nombre o id
+        Pokemón! El pokemón con mayor poder acumulado será el vencedor ¡Tienes hasta 6 pokeballs disponibles para vencer a Gary!
+        ¡¡Buena Suerte!! <br></br><b>(Pulsa 'X' para continuar)</b>
+      </div>
+      <div id="container" class="container"></div>
+    </div>
+    <div id="overlay"></div>
+  </body>
 </html>
