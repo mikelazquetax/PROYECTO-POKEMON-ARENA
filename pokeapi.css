@@ -98,6 +98,8 @@ body{
 
 }
 
+
+
 .cardPokeUser{
     width: 20%;
     height: 100%;
@@ -243,5 +245,52 @@ body{
     margin-left: 5%;
   
 
+
+}
+
+
+.claseImg{
+    height: 25%;
+    width: 25%;
+    animation: fadeIn 4s ; 
+    animation: load 4s;
+  
+}
+
+.claseTextos{
+    animation: fadeIn 10s ; 
+}
+
+@keyframes fadeIn {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+
+@keyframes load {
+    50%{
+        transform: scale(0.5);
+    }
+}
+
+.msgToast{
+
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    transition: 40000ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: white;
+    width: 500px;
+    max-width: 80%;
+    text-align: center;
+    font-weight: bold;
 
 }

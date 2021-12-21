@@ -12,18 +12,15 @@ var audio = new Audio("./pokeMusic.mp3");
 window.onload = () => {
   //Instanciación
 
-  const closeModalButtons = document.querySelectorAll('[data-close-button]')
-  const overlay = document.getElementById('overlay')
-  overlay.classList.add('active')
+  const closeModalButtons = document.querySelectorAll("[data-close-button]");
+  const overlay = document.getElementById("overlay");
+  overlay.classList.add("active");
 
-
-closeModalButtons.forEach(button =>{
-  button.addEventListener('click', () =>{
-
-  closeModel(modal)
-  
-  })
-})
+  closeModalButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      closeModel(modal);
+    });
+  });
   //Creación campo input
 
   bodyDoc = document.querySelector("body");
@@ -41,8 +38,7 @@ closeModalButtons.forEach(button =>{
 
   bodyDoc.appendChild(matchCode);
   bodyDoc.appendChild(searchButton);
-  
-  
+
   // La consola elige un pokemon enemigo contra el que luchar
   var pokeBot = randomChoice(1, 898); //Elige un numero aleatorio del 1 al 898
   var user = "bot"; // identificamos al usuario rival como un 'bot' para determinar aposteriori la clase del Pokemon
@@ -54,18 +50,18 @@ closeModalButtons.forEach(button =>{
     var pokeQuery = document.getElementById("buscador").value.toLowerCase(); // contiene el pokemon buscado
     user = "jugador"; // identificamos al usuario como el jugador cuando se pulsa el boton
 
-    if (audio.paused == true) 
-      //Musica Maestro. Comienza la batalla
-     // audio.play();
+    if (audio.paused == true)
+      if (contador == 0) {
+        //Musica Maestro. Comienza la batalla
+        // audio.play();
 
-    if (contador == 0) { // La primera vez que se elige pokemon el contador está a cero
-      contador = contador + 1; // Se ha elegido el primer pokemon. El contador pasa a 1
-      datosPokemon(pokeQuery, user); // Se llama a la funcion para obtener los datos del pokemon que ha eligido el jugador
-   
-    } else if (contadorLivesUser < 5) {
-      user = "jugador";
-      datosPokemon(pokeQuery, user);
-    }
+        // La primera vez que se elige pokemon el contador está a cero
+        contador = contador + 1; // Se ha elegido el primer pokemon. El contador pasa a 1
+        datosPokemon(pokeQuery, user); // Se llama a la funcion para obtener los datos del pokemon que ha eligido el jugador
+      } else if (contadorLivesUser < 5) {
+        user = "jugador";
+        datosPokemon(pokeQuery, user);
+      }
   });
 };
 
@@ -78,7 +74,7 @@ function showPokemon(dato, style) {
   for (var i = 0; i < seisLives; i++) {
     //Añadimos las vidas a los jugadores. Cada jugador tiene 6 vidas
     var pokeballs = document.createElement("Img");
-   
+
     pokeballs.src = "./pokeball.png";
     if (style === "cardPoke") {
       pokeballs.id = i + "b";
@@ -90,11 +86,11 @@ function showPokemon(dato, style) {
 
     cardPoke.appendChild(pokeballs);
   }
-  container = document.getElementById('container')
+  container = document.getElementById("container");
   cardPoke.classList.add(`${style}`); // El estilo que añadimos al div del bot y del user
   cardPoke.id = `${style}` + "id"; //El id del div del pokemon del bot y del usser
-  container.appendChild(cardPoke); 
-  bodyDoc.appendChild(container)
+  container.appendChild(cardPoke);
+  bodyDoc.appendChild(container);
   for (propiedad in dato) {
     if (propiedad === "name") {
       var pokeName = document.createElement("p");
@@ -129,32 +125,39 @@ function showPokemon(dato, style) {
 
 ///Mostrar siguiente Pokemon
 
-function showNextPokemon(dato, style) { // Esta funcion se ejecuta despues de la primera batalla y hace que se vayan sobrescribiendo los pokemons elegidos
+function showNextPokemon(dato, style) {
+  // Esta funcion se ejecuta despues de la primera batalla y hace que se vayan sobrescribiendo los pokemons elegidos
   // tanto por parte del jugador como del bot.
   for (propiedad in dato) {
     if (propiedad === "name" && style == "cardPoke") {
       var pokeName = document.getElementById("nombrePokeBot");
-      pokeName.innerText = dato.name.toUpperCase();
+      pokeNames(pokeName,dato);
+     // pokeName.innerText = dato.name.toUpperCase();
     } else if (propiedad === "sprites" && style == "cardPoke") {
       var pokeImg = document.getElementById("imgPokeBot");
     } else if (propiedad === "types" && style == "cardPoke") {
       var pokeTipo = document.getElementById("tipoPokeBot");
-      pokeTipo.innerText = dato.types[0].type.name;
+      pokeTypes(pokeTipo,dato);
+     // pokeTipo.innerText = dato.types[0].type.name;
     } else if (propiedad === "name" && style == "cardPokeUser") {
       var pokeName = document.getElementById("nombrePokeUser");
-      pokeName.innerText = dato.name.toUpperCase();
+      pokeNames(pokeName,dato);
+ //     pokeName.innerText = dato.name.toUpperCase();
     } else if (propiedad === "sprites" && style == "cardPokeUser") {
       var pokeImg = document.getElementById("imgPokeUser");
     } else if (propiedad === "types" && style == "cardPokeUser") {
       var pokeTipo = document.getElementById("tipoPokeUser");
-      pokeTipo.innerText = dato.types[0].type.name;
+      pokeTypes(pokeTipo,dato);
+  //    pokeTipo.innerText = dato.types[0].type.name;
     }
   }
 
   if (style === "cardPoke") {
-    pokeImg.src = dato.sprites.front_default;
+    test(pokeImg, dato, 0);
+    //  pokeImg.src = dato.sprites.front_default;
   } else {
-    pokeImg.src = dato.sprites.back_default;
+    test(pokeImg, dato, 1);
+    //  pokeImg.src = dato.sprites.back_default;
   }
 }
 
@@ -179,15 +182,15 @@ const datosPokemon = async (id, user) => {
 
     /////////////////////////////////////
     if (contadorDivs <= 1) {
-      showPokemon(dato, style);  // Cuando elige el bot por primera vez, se mete en esta función y cuando elegimos nosotros por primera vez, también.
+      showPokemon(dato, style); // Cuando elige el bot por primera vez, se mete en esta función y cuando elegimos nosotros por primera vez, también.
       contadorDivs = contadorDivs + 1; // Despues de que el bot haya elegido el pokemon el contador de divs pasa a 1. Cuando elija el jugador pasará a 2
     } else {
       showNextPokemon(dato, style); // A partir de la segunda batalla, se procesa esta función porque el contadordeDivs es 2 o mayor
     }
     ///////////////////////////////////
-    
+
     if (user === "jugador" && contadorLivesUser == 5) {
-      showButtonFight(); //Despues de mostrar el pokemón aparece el botón de lucha. Solo se muestra una vez. Cuando el usuario es el jugador y cuando tiene las 6 vidas. Es decir, 
+      showButtonFight(); //Despues de mostrar el pokemón aparece el botón de lucha. Solo se muestra una vez. Cuando el usuario es el jugador y cuando tiene las 6 vidas. Es decir,
       // despues de elegir el primer pokemon unicamente. ¡¡YA ESTAMOS LISTOS PARA LUCHAR POR PRIMERA VEZ!
     }
   } catch {
@@ -208,49 +211,67 @@ function randomChoice(min, max) {
 const showButtonFight = () => {
   bodyDoc.appendChild(divButtonFight);
   buttonFights = document.createElement("button");
+  buttonFights.id = "AL"
   buttonFights.innerText = "A (Luchar)";
-  buttonFights.classList.add('pokeballFight')
+  buttonFights.classList.add("pokeballFight");
   divButtonFight.appendChild(buttonFights);
 
   buttonRun = document.createElement("button");
   buttonRun.innerText = "B (Huir)";
-  buttonRun.classList.add('pokeballRun')
+  buttonRun.id = "BH"
+  buttonRun.classList.add("pokeballRun");
   divButtonFight.appendChild(buttonRun);
 
   buttonFights.addEventListener("click", () => {
-    imgInicializada = null
-    imgInicializada = document.getElementById('imgPokeUser') 
-    if(imgInicializada.currentSrc !== ''){ //Se evita que el jugdor pueda darle a fight sin elegir pokemon antes
+    imgInicializada = null;
+    imgInicializada = document.getElementById("imgPokeUser");
+    if (imgInicializada.currentSrc !== "") {
+      //Se evita que el jugdor pueda darle a fight sin elegir pokemon antes
 
-    pokeFight(contadorLivesBot, contadorLivesUser); // Se pulsa el boton 'FIGHT!' por primera vez y los usuarios tienen 6 vidas
-    }else{alert('elige un pokemon')}
+      pokeFight(contadorLivesBot, contadorLivesUser); // Se pulsa el boton 'FIGHT!' por primera vez y los usuarios tienen 6 vidas
+    } else {
+      alert("elige un pokemon");
+    }
   });
 
-  buttonRun.addEventListener("click", ()=>{
-    alert('Cobarde!')
-    window.location.reload()
-  })
-
+  buttonRun.addEventListener("click", () => {
+    alert("Cobarde!");
+    window.location.reload();
+  });
 };
 
 function pokeFight() {
+
+  document.getElementById('AL').disabled = true;
+  document.getElementById('BH').disabled = true;
+  document.getElementById('btonBuscar').disabled = true;
+
   for (key in pokemonChoseByBot.stats) {
     totalPowerBot = totalPowerBot + pokemonChoseByBot.stats[key].base_stat; //sumamos el poder del bot
   }
 
   for (key in pokemonChoseByPlayer.stats) {
-    totalPowerUser = totalPowerUser + pokemonChoseByPlayer.stats[key].base_stat;//sumamos el poder del user
+    totalPowerUser = totalPowerUser + pokemonChoseByPlayer.stats[key].base_stat; //sumamos el poder del user
   }
   console.log(totalPowerUser);
   console.log(totalPowerBot);
   if (totalPowerUser >= totalPowerBot) {
-    pokeballAEliminar = document.getElementById(`${contadorLivesBot}` + "b"); //Quitamos la  pokeball
-    pokeballAEliminar.remove();
-    contadorLivesBot = contadorLivesBot - 1; // le restamos una vida al rival
+
 
     nombrepokemonAEliminar = document.getElementById("nombrePokeBot"); // No hace falta
     tipopokemonAEliminar = document.getElementById("tipoPokeBot"); // No hace falta
     imagenpokemonAEliminar = document.getElementById("imgPokeBot"); // No hace falta
+
+    messageToast(nombrepokemonAEliminar) //Mensaje de cuando cae un rival eliminado
+
+
+
+    pokeballAEliminar = document.getElementById(`${contadorLivesBot}` + "b"); //Quitamos la  pokeball
+    pokeballAEliminar.remove();
+    contadorLivesBot = contadorLivesBot - 1; // le restamos una vida al rival
+
+
+
     totalPowerUser = 0; // Ha acabado la pelea y reiniciamos el poder
     totalPowerBot = 0; // Si no reiniciamos los poderes, se les acumularán a los siguientes pokemons
 
@@ -262,6 +283,7 @@ function pokeFight() {
     pokeballAEliminar.remove();
     contadorLivesUser = contadorLivesUser - 1;
     nombrepokemonAEliminar = document.getElementById("nombrePokeUser");
+    messageToast(nombrepokemonAEliminar)
     nombrepokemonAEliminar.innerText = null;
     tipopokemonAEliminar = document.getElementById("tipoPokeUser");
     tipopokemonAEliminar.innerText = null;
@@ -278,15 +300,67 @@ function pokeFight() {
 
   if (contadorLivesBot < 0) {
     alert("Has ganado a tus rivales!");
+    window.location.reload();
   } else if (contadorLivesUser < 0) {
     alert("Gary Te ha Ganado");
+    window.location.reload();
   }
 }
 
+function closeModel(modal) {
+  if (modal == null) return;
+  modal.classList.remove("active");
+  overlay.classList.remove("active");
+}
 
-function closeModel(modal){
-if (modal == null) return
-modal.classList.remove('active')
-overlay.classList.remove('active')
+function delayPokeball(time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+function delaytexts(time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+async function test(pokedata, dato, position) {
+  pokedata.classList.add("claseImg");
+  pokedata.src = "./pokeballCut.jpg";
+  await delayPokeball(4000);
+  pokedata.classList.remove("claseImg");
+  if (position == 0) {
+    pokedata.src = dato.sprites.front_default;
+  } else {
+    pokedata.src = dato.sprites.back_default;
+  }
+}
+
+async function pokeNames(pokeName,dato) {
+  pokeName.classList.add("claseTextos");
+  
+  pokeName.innerText = dato.name.toUpperCase()
+  await delaytexts(40000)
+  pokeName.classList.remove("claseTextos");
+}
+
+async function pokeTypes(pokeTypes,dato) {
+  pokeTypes.classList.add("claseTextos");
+  
+  pokeTypes.innerText = dato.types[0].type.name;
+  await delaytexts(40000)
+  pokeTypes.classList.remove("claseTextos");
+
+ 
+}
+
+async function messageToast(nombrepokemonAEliminar){
+var messageToast = document.createElement('div');
+messageToast.classList.add('msgToast')
+messageToast.innerText = `${nombrepokemonAEliminar.innerText} derrotado`
+
+bodyDoc.appendChild(messageToast)
+
+await delayPokeball(4000);
+messageToast.remove()
+document.getElementById('AL').disabled = false;
+document.getElementById('BH').disabled = false;
+document.getElementById('btonBuscar').disabled = false;
 
 }
