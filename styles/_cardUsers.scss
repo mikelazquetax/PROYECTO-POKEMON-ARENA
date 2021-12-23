@@ -1,0 +1,109 @@
+.container{
+    display: flex;
+    flex-direction: row-reverse;
+    @include mobile {
+        display: flex;
+        flex-direction: column;
+       
+      }
+
+.cardPoke{
+    
+    width: 20%;
+    margin-right: 10%;
+    margin-top: 5%;
+    height: 100%;
+    @include mobile{
+        margin-left: 25%;
+        margin-top: 16%;
+        width: 55%;
+        border-style: double;
+        text-align: center;
+    }
+
+}
+
+
+
+.cardPokeUser{
+    width: 20%;
+    height: 100%;
+    /* width: min-content; */
+    margin-right: 20%;
+    /* padding-left: 50%; */
+    margin-top: 5%;
+
+    @include mobile{
+        margin-left: 25%;
+        margin-top: 16%;
+        width: 55%;
+        border-style: double;
+        text-align: center;
+    }
+    
+}
+
+.pokeball{
+    height: 5%;
+    width: 5%;
+    display: inline-flex;
+    padding-inline: 2px;
+
+    @include mobile{
+        margin-top: 1%;
+        height: 8%;
+        width: 8%;
+        display: inline-flex;
+        padding-inline: 5px;
+        border-bottom: double;
+        border-bottom-color: lightseagreen;
+    }
+
+}
+.pokeballu{
+    height: 5%;
+    width: 5%;
+    display: inline-flex;
+    padding-inline: 2px;
+    @include mobile{
+        margin-top: 1%;
+        height: 8%;
+        width: 8%;
+        display: inline-flex;
+        padding-inline: 5px;
+        border-bottom: double;
+        border-bottom-color: rgb(180, 87, 87);
+    }
+}
+
+#imgPokeUser{
+    border-radius: 50%;
+    background-color: rgb(180, 87, 87);
+}
+
+#nombrePokeUser{
+    color: #ff4411; font-size: 28px; 
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#tipoPokeUser{
+    color: #ff4411; font-size: 28px; 
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#nombrePokeBot{
+    color: blue; font-size: 28px; 
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#tipoPokeBot{
+    color: blue; font-size: 28px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#imgPokeBot{
+    border-radius: 50%;
+    background-color: lightseagreen;
+}
+
+}

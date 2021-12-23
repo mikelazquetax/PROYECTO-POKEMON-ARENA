@@ -1,0 +1,466 @@
+/**maxwidth es eso o menos**/
+.modal {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%) scale(0);
+          transform: translate(-50%, -50%) scale(0);
+  -webkit-transition: 200ms ease-in-out;
+  transition: 200ms ease-in-out;
+  border: 1px solid black;
+  border-radius: 10px;
+  z-index: 10;
+  background-color: white;
+  width: 500px;
+  max-width: 80%;
+}
+
+@media (max-width: 390px) {
+  .modal {
+    margin-top: 45%;
+  }
+}
+
+.modal .modal-header {
+  padding: 10px 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.modal .modal-header .title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal .modal-header .close-button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal .modal-body {
+  padding: 10px 15px;
+}
+
+.modal.active {
+  -webkit-transform: translate(-50%, -50%) scale(1);
+          transform: translate(-50%, -50%) scale(1);
+}
+
+.logoCabecera {
+  background-color: red;
+}
+
+.buscador {
+  margin-left: 40%;
+  border-color: red;
+  border-radius: 10%;
+  width: 13%;
+  padding-left: 2%;
+}
+
+@media (max-width: 770px) {
+  .buscador {
+    width: 20%;
+    padding: 1%;
+  }
+}
+
+@media (max-width: 390px) {
+  .buscador {
+    margin-left: 22%;
+    width: 60%;
+    padding: 2%;
+  }
+}
+
+.buscador :hover {
+  border-color: blue;
+}
+
+.btonBuscar {
+  width: 10%;
+  height: 35%;
+  border: none;
+  outline: none;
+  color: #858282;
+  background: #ffc787;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+@media (max-width: 770px) {
+  .btonBuscar {
+    margin-left: 10%;
+    width: 20%;
+    margin-top: 0%;
+    padding: 1%;
+  }
+}
+
+@media (max-width: 390px) {
+  .btonBuscar {
+    margin-left: 22%;
+    width: 60%;
+    padding: 2%;
+    margin-top: 3%;
+  }
+}
+
+.btonBuscar :before {
+  content: '';
+  background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  -webkit-filter: blur(5px);
+          filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  -webkit-animation: glowing 20s linear infinite;
+          animation: glowing 20s linear infinite;
+  opacity: 0;
+  -webkit-transition: opacity .3s ease-in-out;
+  transition: opacity .3s ease-in-out;
+  border-radius: 10px;
+}
+
+.btonBuscar :active {
+  color: #000;
+}
+
+.btonBuscar :active :after {
+  background: transparent;
+}
+
+.btonBuscar :hover:before {
+  opacity: 1;
+}
+
+.btonBuscar :after {
+  z-index: -1;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+@-webkit-keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+
+@media (max-width: 390px) {
+  .container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+.container .cardPoke {
+  width: 20%;
+  margin-right: 10%;
+  margin-top: 5%;
+  height: 100%;
+}
+
+@media (max-width: 390px) {
+  .container .cardPoke {
+    margin-left: 25%;
+    margin-top: 16%;
+    width: 55%;
+    border-style: double;
+    text-align: center;
+  }
+}
+
+.container .cardPokeUser {
+  width: 20%;
+  height: 100%;
+  /* width: min-content; */
+  margin-right: 20%;
+  /* padding-left: 50%; */
+  margin-top: 5%;
+}
+
+@media (max-width: 390px) {
+  .container .cardPokeUser {
+    margin-left: 25%;
+    margin-top: 16%;
+    width: 55%;
+    border-style: double;
+    text-align: center;
+  }
+}
+
+.container .pokeball {
+  height: 5%;
+  width: 5%;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  padding-inline: 2px;
+}
+
+@media (max-width: 390px) {
+  .container .pokeball {
+    margin-top: 1%;
+    height: 8%;
+    width: 8%;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    padding-inline: 5px;
+    border-bottom: double;
+    border-bottom-color: lightseagreen;
+  }
+}
+
+.container .pokeballu {
+  height: 5%;
+  width: 5%;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  padding-inline: 2px;
+}
+
+@media (max-width: 390px) {
+  .container .pokeballu {
+    margin-top: 1%;
+    height: 8%;
+    width: 8%;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    padding-inline: 5px;
+    border-bottom: double;
+    border-bottom-color: #b45757;
+  }
+}
+
+.container #imgPokeUser {
+  border-radius: 50%;
+  background-color: #b45757;
+}
+
+.container #nombrePokeUser {
+  color: #ff4411;
+  font-size: 28px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.container #tipoPokeUser {
+  color: #ff4411;
+  font-size: 28px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.container #nombrePokeBot {
+  color: blue;
+  font-size: 28px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.container #tipoPokeBot {
+  color: blue;
+  font-size: 28px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.container #imgPokeBot {
+  border-radius: 50%;
+  background-color: lightseagreen;
+}
+
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+#overlay .active {
+  background-color: rgba(0, 0, 0, 0.452);
+  pointer-events: all;
+}
+
+@media (max-width: 390px) {
+  .controlBotones {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+}
+
+.controlBotones .pokeballFight {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: #f0aeae;
+  background-color: linear-gradient(to bottom, #dc3d24 50%, white 50%);
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  -webkit-box-shadow: inset 0 0 0 4px #232B2B;
+          box-shadow: inset 0 0 0 4px #232B2B;
+  position: relative;
+  font-weight: bold;
+  margin-left: 40%;
+}
+
+@media (max-width: 390px) {
+  .controlBotones .pokeballFight {
+    margin-left: 20%;
+    margin-top: 4%;
+  }
+}
+
+.controlBotones .pokeballRun {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: #7086a7;
+  background-color: linear-gradient(to bottom, #dc3d24 50%, white 50%);
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  -webkit-box-shadow: inset 0 0 0 4px #232B2B;
+          box-shadow: inset 0 0 0 4px #232B2B;
+  position: relative;
+  font-weight: bold;
+  margin-left: 5%;
+}
+
+@media (max-width: 390px) {
+  .controlBotones .pokeballRun {
+    margin-top: 4%;
+  }
+}
+
+.claseImg {
+  height: 25%;
+  width: 25%;
+  -webkit-animation: fadeIn 4s;
+          animation: fadeIn 4s;
+  -webkit-animation: load 4s;
+          animation: load 4s;
+}
+
+.claseTextos {
+  -webkit-animation: fadeIn 10s;
+          animation: fadeIn 10s;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes load {
+  50% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+}
+
+@keyframes load {
+  50% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+}
+
+.msgToast {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%) scale(1);
+          transform: translate(-50%, -50%) scale(1);
+  -webkit-transition: 40000ms ease-in-out;
+  transition: 40000ms ease-in-out;
+  border: 1px solid black;
+  border-radius: 10px;
+  z-index: 10;
+  background-color: white;
+  width: 500px;
+  max-width: 80%;
+  text-align: center;
+  font-weight: bold;
+}
+
+body {
+  background-color: whitesmoke;
+}
+/*# sourceMappingURL=styles.css.map */

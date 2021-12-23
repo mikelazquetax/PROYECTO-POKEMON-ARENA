@@ -53,7 +53,7 @@ window.onload = () => {
     if (audio.paused == true)
       if (contador == 0) {
         //Musica Maestro. Comienza la batalla
-        // audio.play();
+         audio.play();
 
         // La primera vez que se elige pokemon el contador está a cero
         contador = contador + 1; // Se ha elegido el primer pokemon. El contador pasa a 1
@@ -100,9 +100,9 @@ function showPokemon(dato, style) {
     } else if (propiedad === "sprites") {
       var pokeImg = document.createElement("Img");
       if (style === "cardPoke") {
-        pokeImg.src = dato.sprites.front_default;
+        pokeImg.src = dato.sprites.front_shiny;
       } else {
-        pokeImg.src = dato.sprites.back_default;
+        pokeImg.src = dato.sprites.back_shiny;
       }
       cardPoke.appendChild(pokeImg);
     } else if (propiedad === "types") {
@@ -221,6 +221,8 @@ const showButtonFight = () => {
   buttonRun.id = "BH"
   buttonRun.classList.add("pokeballRun");
   divButtonFight.appendChild(buttonRun);
+
+  divButtonFight.classList.add('controlBotones')
 
   buttonFights.addEventListener("click", () => {
     imgInicializada = null;
